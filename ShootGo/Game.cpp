@@ -71,6 +71,8 @@ void Game::Render()
 
 	// TODO: Add your rendering code here.
 
+
+	// Draw the cat in straight alpha channel with WIC
 	/*m_spriteBatch->Begin(SpriteSortMode_Deferred, m_states->NonPremultiplied());
 
 	m_spriteBatch->Draw(m_texture.Get(), m_screenPos, nullptr, Colors::White,
@@ -78,10 +80,40 @@ void Game::Render()
 
 	m_spriteBatch->End();*/
 
-	m_spriteBatch->Begin();
+
+	// Draw the cat rotating
+	/*m_spriteBatch->Begin();
 
 	m_spriteBatch->Draw(m_texture.Get(), m_screenPos, nullptr, Colors::White,
 		cosf(float(m_timer.GetTotalSeconds())) * 3.f, m_origin);
+
+	m_spriteBatch->End();*/
+
+
+	// Draw the cat scaling
+	/*m_spriteBatch->Begin();
+
+	m_spriteBatch->Draw(m_texture.Get(), m_screenPos, nullptr, Colors::White,
+		0.f, m_origin,
+		cosf(float(m_timer.GetTotalSeconds())) + 2.f);
+
+	m_spriteBatch->End();*/
+
+
+	// Draw the cat tinting with green color
+	/*m_spriteBatch->Begin();
+
+	m_spriteBatch->Draw(m_texture.Get(), m_screenPos, nullptr, Colors::Green,
+		0.f, m_origin);
+
+	m_spriteBatch->End();*/
+
+
+	// Tiling the sprite
+	m_spriteBatch->Begin(SpriteSortMode_Deferred, nullptr, m_states->LinearWrap());
+
+	m_spriteBatch->Draw(m_texture.Get(), m_screenPos, &m_tileRect, Colors::White,
+		0.f, m_origin);
 
 	m_spriteBatch->End();
 
@@ -251,8 +283,13 @@ void Game::CreateDevice()
 	CD3D11_TEXTURE2D_DESC catDesc;
 	cat->GetDesc(&catDesc);
 
-	m_origin.x = float(catDesc.Width / 2);
-	m_origin.y = float(catDesc.Height / 2);
+	m_origin.x = float(catDesc.Width * 2);
+	m_origin.y = float(catDesc.Height * 2);
+
+	m_tileRect.left = catDesc.Width * 2;
+	m_tileRect.right = catDesc.Width * 6;
+	m_tileRect.top = catDesc.Height * 2;
+	m_tileRect.bottom = catDesc.Height * 6;
 
 	m_states = std::make_unique<CommonStates>(m_d3dDevice.Get());
 }

@@ -82,4 +82,7 @@ private:
 	DirectX::SimpleMath::Vector2 m_origin;
 
 	std::unique_ptr<DirectX::CommonStates> m_states;
+
+	RECT m_tileRect;
+
 };
