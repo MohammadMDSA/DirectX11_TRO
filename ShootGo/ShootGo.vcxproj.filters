@@ -23,10 +23,19 @@
     <Image Include="directx.ico">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\cat.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="cat.DDS">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="settings.manifest">
       <Filter>Assets</Filter>
     </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

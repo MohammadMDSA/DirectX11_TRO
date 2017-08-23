@@ -6,6 +6,21 @@
 
 #include "StepTimer.h"
 
+#include "CommonStates.h"
+#include "DDSTextureLoader.h"
+#include "DirectXHelpers.h"
+#include "Effects.h"
+#include "GamePad.h"
+#include "GeometricPrimitive.h"
+#include "Model.h"
+#include "PrimitiveBatch.h"
+#include "ScreenGrab.h"
+#include "SimpleMath.h"
+#include "SpriteBatch.h"
+#include "SpriteFont.h"
+#include "VertexTypes.h"
+#include "WICTextureLoader.h"
+
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -13,50 +28,58 @@ class Game
 {
 public:
 
-    Game();
+	Game();
 
-    // Initialization and management
-    void Initialize(HWND window, int width, int height);
+	// Initialization and management
+	void Initialize(HWND window, int width, int height);
 
-    // Basic game loop
-    void Tick();
+	// Basic game loop
+	void Tick();
 
-    // Messages
-    void OnActivated();
-    void OnDeactivated();
-    void OnSuspending();
-    void OnResuming();
-    void OnWindowSizeChanged(int width, int height);
+	// Messages
+	void OnActivated();
+	void OnDeactivated();
+	void OnSuspending();
+	void OnResuming();
+	void OnWindowSizeChanged(int width, int height);
 
-    // Properties
-    void GetDefaultSize( int& width, int& height ) const;
+	// Properties
+	void GetDefaultSize(int& width, int& height) const;
 
 private:
 
-    void Update(DX::StepTimer const& timer);
-    void Render();
+	void Update(DX::StepTimer const& timer);
+	void Render();
 
-    void Clear();
-    void Present();
+	void Clear();
+	void Present();
 
-    void CreateDevice();
-    void CreateResources();
+	void CreateDevice();
+	void CreateResources();
 
-    void OnDeviceLost();
+	void OnDeviceLost();
 
-    // Device resources.
-    HWND                                            m_window;
-    int                                             m_outputWidth;
-    int                                             m_outputHeight;
+	// Device resources.
+	HWND                                            m_window;
+	int                                             m_outputWidth;
+	int                                             m_outputHeight;
 
-    D3D_FEATURE_LEVEL                               m_featureLevel;
-    Microsoft::WRL::ComPtr<ID3D11Device1>           m_d3dDevice;
-    Microsoft::WRL::ComPtr<ID3D11DeviceContext1>    m_d3dContext;
+	D3D_FEATURE_LEVEL                               m_featureLevel;
+	Microsoft::WRL::ComPtr<ID3D11Device1>           m_d3dDevice;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext1>    m_d3dContext;
 
-    Microsoft::WRL::ComPtr<IDXGISwapChain1>         m_swapChain;
-    Microsoft::WRL::ComPtr<ID3D11RenderTargetView>  m_renderTargetView;
-    Microsoft::WRL::ComPtr<ID3D11DepthStencilView>  m_depthStencilView;
+	Microsoft::WRL::ComPtr<IDXGISwapChain1>         m_swapChain;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView>  m_renderTargetView;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView>  m_depthStencilView;
 
-    // Rendering loop timer.
-    DX::StepTimer                                   m_timer;
+	// Rendering loop timer.
+	DX::StepTimer                                   m_timer;
+
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+
+	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
+	DirectX::SimpleMath::Vector2 m_screenPos;
+	DirectX::SimpleMath::Vector2 m_origin;
+
+	std::unique_ptr<DirectX::CommonStates> m_states;
 };
