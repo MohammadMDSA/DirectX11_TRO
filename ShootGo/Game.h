@@ -75,14 +75,17 @@ private:
 	// Rendering loop timer.
 	DX::StepTimer                                   m_timer;
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>m_texture;
 
-	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
-	DirectX::SimpleMath::Vector2 m_screenPos;
-	DirectX::SimpleMath::Vector2 m_origin;
+	std::unique_ptr<DirectX::SpriteBatch>           m_spriteBatch;
+	DirectX::SimpleMath::Vector2                    m_screenPos;
+	DirectX::SimpleMath::Vector2                    m_origin;
 
-	std::unique_ptr<DirectX::CommonStates> m_states;
+	std::unique_ptr<DirectX::CommonStates>          m_states;
 
-	RECT m_tileRect;
+	RECT                                            m_tileRect;
+
+	RECT                                            m_fullscreenRect;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>m_background;
 
 };

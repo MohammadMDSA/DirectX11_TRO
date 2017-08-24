@@ -110,10 +110,20 @@ void Game::Render()
 
 
 	// Tiling the sprite
-	m_spriteBatch->Begin(SpriteSortMode_Deferred, nullptr, m_states->LinearWrap());
+	/*m_spriteBatch->Begin(SpriteSortMode_Deferred, nullptr, m_states->LinearWrap());
 
 	m_spriteBatch->Draw(m_texture.Get(), m_screenPos, &m_tileRect, Colors::White,
 		0.f, m_origin);
+
+	m_spriteBatch->End();*/
+
+
+	// Background rendering
+	m_spriteBatch->Begin();
+
+	m_spriteBatch->Draw(m_background.Get(), m_fullscreenRect);
+
+	m_spriteBatch->Draw(m_texture.Get(), m_screenPos, nullptr, Colors::White, 0.f, m_origin);
 
 	m_spriteBatch->End();
 
@@ -260,10 +270,6 @@ void Game::CreateDevice()
 
 	// TODO: Initialize device dependent objects here (independent of window size).
 
-	/*DX::ThrowIfFailed(
-		CreateWICTextureFromFile(m_d3dDevice.Get(), L"cat.png", nullptr, m_texture.ReleaseAndGetAddressOf())
-	);*/
-
 	m_spriteBatch = std::make_unique<SpriteBatch>(m_d3dContext.Get());
 
 	ComPtr<ID3D11Resource> resource;
@@ -272,9 +278,7 @@ void Game::CreateDevice()
 	);*/
 
 	DX::ThrowIfFailed(
-		CreateDDSTextureFromFile(m_d3dDevice.Get(), L"cat.dds",
-			resource.GetAddressOf(),
-			m_texture.ReleaseAndGetAddressOf())
+		CreateDDSTextureFromFile(m_d3dDevice.Get(), L"cat.dds", resource.GetAddressOf(), m_texture.ReleaseAndGetAddressOf())
 	);
 
 	ComPtr<ID3D11Texture2D> cat;
@@ -283,15 +287,22 @@ void Game::CreateDevice()
 	CD3D11_TEXTURE2D_DESC catDesc;
 	cat->GetDesc(&catDesc);
 
-	m_origin.x = float(catDesc.Width * 2);
-	m_origin.y = float(catDesc.Height * 2);
+	/*m_origin.x = float(catDesc.Width * 2);
+	m_origin.y = float(catDesc.Height * 2);*/
 
-	m_tileRect.left = catDesc.Width * 2;
+	m_origin.x = float(catDesc.Width / 2);
+	m_origin.y = float(catDesc.Height / 2);
+
+	/*m_tileRect.left = catDesc.Width * 2;
 	m_tileRect.right = catDesc.Width * 6;
 	m_tileRect.top = catDesc.Height * 2;
-	m_tileRect.bottom = catDesc.Height * 6;
+	m_tileRect.bottom = catDesc.Height * 6;*/
 
 	m_states = std::make_unique<CommonStates>(m_d3dDevice.Get());
+
+	DX::ThrowIfFailed(
+		CreateWICTextureFromFile(m_d3dDevice.Get(), L"sunset.jpg", nullptr, m_background.ReleaseAndGetAddressOf())
+	);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -391,6 +402,11 @@ void Game::CreateResources()
 
 	m_screenPos.x = backBufferWidth / 2.f;
 	m_screenPos.y = backBufferHeight / 2.f;
+
+	m_fullscreenRect.left = 0;
+	m_fullscreenRect.top = 0;
+	m_fullscreenRect.right = backBufferWidth;
+	m_fullscreenRect.bottom = backBufferHeight;
 }
 
 void Game::OnDeviceLost()
@@ -405,6 +421,7 @@ void Game::OnDeviceLost()
 	m_texture.Reset();
 	m_spriteBatch.reset();
 	m_states.reset();
+	m_background.Reset();
 
 	CreateDevice();
 
