@@ -10,6 +10,7 @@ extern void ExitGame();
 using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
+using namespace DirectX::SimpleMath;
 
 Game::Game() :
 	m_window(nullptr),
@@ -72,14 +73,25 @@ void Game::Render()
 	// TODO: Add your rendering code here.
 
 
-	//Add simple rendered text
+	// Add simple rendered text
+	/*const wchar_t* output = L"Hello, world";
+	DirectX::SimpleMath::Vector2 origin = m_font->MeasureString(output) / 2.f;
 	m_spriteBatch->Begin();
 
-	const wchar_t* output = L"Hello, world";
-
-	DirectX::SimpleMath::Vector2 origin = m_font->MeasureString(output) / 2.f;
-
 	m_font->DrawString(m_spriteBatch.get(), output, m_fontPos, Colors::Black, 0.f, origin);
+
+	m_spriteBatch->End();*/
+
+
+	// Add simple rendered text using ASCII
+	const char *ascii = "Hello, world";
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+	std::wstring output = converter.from_bytes(ascii);
+	m_spriteBatch->Begin();
+	
+	Vector2 origin = m_font->MeasureString(output.c_str()) / 2.f;
+
+	m_font->DrawString(m_spriteBatch.get(), output.c_str(), m_fontPos, Colors::Red, 0.f, origin);
 
 	m_spriteBatch->End();
 
