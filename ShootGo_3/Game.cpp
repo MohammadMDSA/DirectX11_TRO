@@ -84,7 +84,7 @@ void Game::Render()
 
 
 	// Add simple rendered text using ASCII
-	const char *ascii = "Hello, world";
+	/*const char *ascii = "Hello, world";
 	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 	std::wstring output = converter.from_bytes(ascii);
 	m_spriteBatch->Begin();
@@ -92,6 +92,23 @@ void Game::Render()
 	Vector2 origin = m_font->MeasureString(output.c_str()) / 2.f;
 
 	m_font->DrawString(m_spriteBatch.get(), output.c_str(), m_fontPos, Colors::Red, 0.f, origin);
+
+	m_spriteBatch->End();*/
+
+
+	// Render text with shadow
+	const wchar_t* output = L"Hello, world";
+
+	Vector2 origin = m_font->MeasureString(output) / 2.f;
+	m_spriteBatch->Begin();
+
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos + Vector2(1.f, 1.f), Colors::Black, 0.f, origin);
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos + Vector2(-1.f, 1.f), Colors::Black, 0.f, origin);
+
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos, Colors::White, 0.f, origin);
 
 	m_spriteBatch->End();
 
