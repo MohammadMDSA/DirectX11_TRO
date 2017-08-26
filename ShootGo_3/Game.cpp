@@ -97,7 +97,7 @@ void Game::Render()
 
 
 	// Render text with shadow
-	const wchar_t* output = L"Hello, world";
+	/*const wchar_t* output = L"Hello, world";
 
 	Vector2 origin = m_font->MeasureString(output) / 2.f;
 	m_spriteBatch->Begin();
@@ -106,6 +106,28 @@ void Game::Render()
 		m_fontPos + Vector2(1.f, 1.f), Colors::Black, 0.f, origin);
 	m_font->DrawString(m_spriteBatch.get(), output,
 		m_fontPos + Vector2(-1.f, 1.f), Colors::Black, 0.f, origin);
+
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos, Colors::White, 0.f, origin);
+
+	m_spriteBatch->End();*/
+
+
+	// Render text with outline
+	m_spriteBatch->Begin();
+
+	const wchar_t* output = L"Hello World";
+
+	Vector2 origin = m_font->MeasureString(output) / 2.f;
+
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos + Vector2(1.f, 1.f), Colors::Black, 0.f, origin);
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos + Vector2(-1.f, 1.f), Colors::Black, 0.f, origin);
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos + Vector2(-1.f, -1.f), Colors::Black, 0.f, origin);
+	m_font->DrawString(m_spriteBatch.get(), output,
+		m_fontPos + Vector2(1.f, -1.f), Colors::Black, 0.f, origin);
 
 	m_font->DrawString(m_spriteBatch.get(), output,
 		m_fontPos, Colors::White, 0.f, origin);
