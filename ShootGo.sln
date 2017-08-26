@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShootGo", "ShootGo\ShootGo.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShootGo_2", "ShootGo_2\ShootGo_2.vcxproj", "{86A9BC92-AA3A-4ED9-9A79-60D8C5F7CA8D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShootGo_3", "ShootGo_3\ShootGo_3.vcxproj", "{CF108478-01BB-4A8E-912F-34C351E5B192}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{86A9BC92-AA3A-4ED9-9A79-60D8C5F7CA8D}.Release|x64.Build.0 = Release|x64
 		{86A9BC92-AA3A-4ED9-9A79-60D8C5F7CA8D}.Release|x86.ActiveCfg = Release|Win32
 		{86A9BC92-AA3A-4ED9-9A79-60D8C5F7CA8D}.Release|x86.Build.0 = Release|Win32
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Debug|x64.ActiveCfg = Debug|x64
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Debug|x64.Build.0 = Debug|x64
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Debug|x86.Build.0 = Debug|Win32
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Release|x64.ActiveCfg = Release|x64
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Release|x64.Build.0 = Release|x64
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Release|x86.ActiveCfg = Release|Win32
+		{CF108478-01BB-4A8E-912F-34C351E5B192}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
